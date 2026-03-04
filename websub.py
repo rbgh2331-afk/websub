@@ -2,6 +2,7 @@ import streamlit as st
 import firebase_admin
 from firebase_admin import credentials, firestore
 from datetime import date, timedelta
+import json
 
 st.set_page_config(layout="wide")
 
@@ -13,7 +14,8 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-cred = credentials.Certificate("key.json")
+key_dict = json.loads(st.secrets["firebase_key"])
+cred = credentials.Certificate(key_dict)
 if not firebase_admin._apps:
     firebase_admin.initialize_app(cred)
 
